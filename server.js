@@ -40,13 +40,6 @@ app.get('/getdeployment', JSONParser, (request, response) => {
                 "status": 500,
                 "error": error
             })
-        }
-
-        if(data.length === 0) {
-            response.send({
-                "status": 200,
-                "message": "No deployments found."
-            })
         } else {
             response.send({
                 "status": 200,
