@@ -72,9 +72,22 @@ app.post('/adddeployment', JSONParser, (request, response) => {
 })
 
 /** Service to add deloyment details */
-app.post('/deletedeployment', JSONParser, (request, response) => {
+app.delete('/deletedeployment', JSONParser, (request, response) => {
     try {
-        // Deployment.create()
+        let _id = request.body._id
+        Deployment.deleteOne( { _id }, (error, data) => {
+            if(error || !data) {
+                response.send({
+                    "status": 500,
+                    "error": error
+                })
+            } else {
+                response.send({
+                    "status": 200,
+                    "data": data
+                })
+            }
+        })
     } catch (error) {
         response.send(error)
     }
