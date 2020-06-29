@@ -71,7 +71,7 @@ app.post('/adddeployment', JSONParser, (request, response) => {
     }
 })
 
-/** Service to add deloyment details */
+/** Service to delete deloyment details */
 app.delete('/deletedeployment', JSONParser, (request, response) => {
     try {
         let _id = request.body._id
