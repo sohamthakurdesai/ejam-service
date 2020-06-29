@@ -2,6 +2,7 @@
 
 const mongoose = require("mongoose");
 const express = require("express");
+const cors = require('cors')
 const bodyParser = require('body-parser')
 const http = require('http');
 
@@ -9,6 +10,7 @@ const JSONParser = bodyParser.json()
 
 const port = process.env.EJAM_SERVICE_PORT || 3001
 const app = express();
+app.use(cors())
 const index = require("./index");
 
 app.use(index)
