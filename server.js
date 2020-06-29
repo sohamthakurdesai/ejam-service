@@ -59,7 +59,20 @@ app.get('/getdeployment', JSONParser, (request, response) => {
 /** Service to add deloyment details */
 app.post('/adddeployment', JSONParser, (request, response) => {
     try {
-        // Deployment.create()
+        new Deployment(request.body).save((error, data) => {
+            if(error || !data) {
+                response.send({
+                    "status": 500,
+                    "error": error
+                })
+            } else {
+                response.send({
+                    "status": 200,
+                    "data": data
+                })
+            }
+        });
+
     } catch (error) {
         response.send(error)
     }
