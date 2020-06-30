@@ -36,7 +36,7 @@ db.once('open', () => {
 
 /** Service to get deployment details */
 app.get('/getdeployment', JSONParser, (request, response) => {
-    Deployment.find({}, (error, data) => {
+    Deployment.find({}, null, {sort: {createdAt: -1}},  (error, data) => {
         if(error || !data) {
             response.send({
                 "status": 500,
