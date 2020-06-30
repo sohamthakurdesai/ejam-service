@@ -35,7 +35,7 @@ db.once('open', () => {
 })
 
 /** Service to get deployment details */
-app.get('/getdeployment', JSONParser, (request, response) => {
+app.get('/deployments', JSONParser, (request, response) => {
     Deployment.find({}, null, {sort: {createdAt: -1}},  (error, data) => {
         if(error || !data) {
             response.send({
@@ -52,7 +52,7 @@ app.get('/getdeployment', JSONParser, (request, response) => {
 })
 
 /** Service to add deloyment details */
-app.post('/adddeployment', JSONParser, (request, response) => {
+app.post('/deployments', JSONParser, (request, response) => {
     new Deployment(request.body).save((error, data) => {
         if(error || !data) {
             response.send({
@@ -69,7 +69,7 @@ app.post('/adddeployment', JSONParser, (request, response) => {
 })
 
 /** Service to delete deloyment details */
-app.delete('/deletedeployment', JSONParser, (request, response) => {
+app.delete('/deployments', JSONParser, (request, response) => {
     let _id = request.body._id;
     Deployment.deleteOne( { _id }, (error, data) => {
         if(error || !data) {
@@ -87,7 +87,7 @@ app.delete('/deletedeployment', JSONParser, (request, response) => {
 })
 
 /** Add new templates and their versions. Currently it would be used only to insert the seed data. */
-app.post('/createtemplates', JSONParser, (request, response) => {
+app.post('/templates', JSONParser, (request, response) => {
     new Templates(request.body).save((error, data) => {
         if(error || !data) {
             response.send({
@@ -104,7 +104,7 @@ app.post('/createtemplates', JSONParser, (request, response) => {
 })
 
 /** get all the existing templates and their versions */
-app.get('/getalltemplates', JSONParser, (request, response) => {
+app.get('/templates', JSONParser, (request, response) => {
     Templates.find({}, (error, data) => {
         if(error || !data) {
             response.send({
