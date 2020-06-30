@@ -24,7 +24,7 @@ const Templates = require('./model/Templates');
 
 /** Database connection through Mongoose. */
 const dbUri = process.env.EJAM_DB_URI
-console.log("dbUri==", dbUri)
+
 mongoose.connect(dbUri, { useFindAndModify: false, useNewUrlParser: true, useUnifiedTopology: true });
 let db = mongoose.connection;
 
