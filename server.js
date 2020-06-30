@@ -5,6 +5,7 @@ const express = require("express");
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const http = require('http');
+require('dotenv').config();
 
 const JSONParser = bodyParser.json()
 
@@ -23,6 +24,7 @@ const Templates = require('./model/Templates');
 
 /** Database connection through Mongoose. */
 const dbUri = process.env.EJAM_DB_URI
+console.log("dbUri==", dbUri)
 mongoose.connect(dbUri, { useFindAndModify: false, useNewUrlParser: true, useUnifiedTopology: true });
 let db = mongoose.connection;
 
