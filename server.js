@@ -20,7 +20,7 @@ server.listen(port, () => console.log(`Listening on port ${port}`));
 
 /** Models */
 const Deployment = require('./model/Deployment');
-const Templates = require('./model/Templates');
+const Templates = require('./model/Template');
 
 /** Database connection through Mongoose. */
 const dbUri = process.env.EJAM_DB_URI
