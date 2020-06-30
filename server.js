@@ -2,21 +2,21 @@
 
 const mongoose = require("mongoose");
 const express = require("express");
-const cors = require('cors')
-const bodyParser = require('body-parser')
+const cors = require('cors');
+const bodyParser = require('body-parser');
 const http = require('http');
 require('dotenv').config();
 
-const JSONParser = bodyParser.json()
+const JSONParser = bodyParser.json();
 
 const port = process.env.EJAM_SERVICE_PORT || 3001
 const app = express();
-app.use(cors())
+app.use(cors());
 const index = require("./index");
 
-app.use(index)
+app.use(index);
 const server = http.createServer(app);
-server.listen(port, () => console.log(`Listening on port ${port}`))
+server.listen(port, () => console.log(`Listening on port ${port}`));
 
 /** Models */
 const Deployment = require('./model/Deployment');
@@ -41,63 +41,37 @@ app.get('/getdeployment', JSONParser, (request, response) => {
             response.send({
                 "status": 500,
                 "error": error
-            })
+            });
         } else {
             response.send({
                 "status": 200,
                 "data": data
-            })
+            });
         }
     })
 })
 
 /** Service to add deloyment details */
 app.post('/adddeployment', JSONParser, (request, response) => {
-    try {
-        new Deployment(request.body).save((error, data) => {
-            if(error || !data) {
-                response.send({
-                    "status": 500,
-                    "error": error
-                })
-            } else {
-                response.send({
-                    "status": 200,
-                    "data": data
-                })
-            }
-        });
-
-    } catch (error) {
-        response.send(error)
-    }
+    new Deployment(request.body).save((error, data) => {
+        if(error || !data) {
+            response.send({
+                "status": 500,
+                "error": error
+            });
+        } else {
+            response.send({
+                "status": 200,
+                "data": data
+            });
+        }
+    });
 })
 
 /** Service to delete deloyment details */
 app.delete('/deletedeployment', JSONParser, (request, response) => {
-    try {
-        let _id = request.body._id
-        Deployment.deleteOne( { _id }, (error, data) => {
-            if(error || !data) {
-                response.send({
-                    "status": 500,
-                    "error": error
-                })
-            } else {
-                response.send({
-                    "status": 200,
-                    "data": data
-                })
-            }
-        })
-    } catch (error) {
-        response.send(error)
-    }
-})
-
-/** Add new templates and their versions. Currently it would be used only to insert the seed data. */
-app.post('/createtemplates', JSONParser, (request, response) => {
-    new Templates(request.body).save((error, data) => {
+    let _id = request.body._id;
+    Deployment.deleteOne( { _id }, (error, data) => {
         if(error || !data) {
             response.send({
                 "status": 500,
@@ -108,6 +82,23 @@ app.post('/createtemplates', JSONParser, (request, response) => {
                 "status": 200,
                 "data": data
             })
+        }
+    })
+})
+
+/** Add new templates and their versions. Currently it would be used only to insert the seed data. */
+app.post('/createtemplates', JSONParser, (request, response) => {
+    new Templates(request.body).save((error, data) => {
+        if(error || !data) {
+            response.send({
+                "status": 500,
+                "error": error
+            });
+        } else {
+            response.send({
+                "status": 200,
+                "data": data
+            });
         }
     });
 })
@@ -119,19 +110,19 @@ app.get('/getalltemplates', JSONParser, (request, response) => {
             response.send({
                 "status": 500,
                 "error": error
-            })
+            });
         }
 
         if(data.length === 0) {
             response.send({
                 "status": 200,
                 "message": "No templates found."
-            })
+            });
         } else {
             response.send({
                 "status": 200,
                 "data": data
-            })
+            });
         }
     })
 })
